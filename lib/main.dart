@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, use_super_parameters, prefer_const_constructors_in_immutables, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -29,6 +31,7 @@ class _VapeStoreHomePageState extends State<VapeStoreHomePage> {
   int _cartItemCount = 0;
   double _totalPrice = 0.0;
 
+  // Fungsi untuk menambahkan item ke keranjang
   void _addToCart(double price) {
     setState(() {
       _cartItemCount++;
@@ -36,6 +39,7 @@ class _VapeStoreHomePageState extends State<VapeStoreHomePage> {
     });
   }
 
+  // Fungsi untuk navigasi ke halaman keranjang
   void _navigateToCart() {
     Navigator.push(
       context,
@@ -44,6 +48,7 @@ class _VapeStoreHomePageState extends State<VapeStoreHomePage> {
     );
   }
 
+  // Fungsi yang dipanggil saat item navigasi di tap
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -56,6 +61,7 @@ class _VapeStoreHomePageState extends State<VapeStoreHomePage> {
       appBar: AppBar(
         title: _selectedIndex == 0 ? Text('VapeStore') : Text('Products'),
         actions: [
+          // Menampilkan ikon keranjang belanja jika halaman utama yang dipilih
           if (_selectedIndex == 0)
             Stack(
               children: [
@@ -81,9 +87,11 @@ class _VapeStoreHomePageState extends State<VapeStoreHomePage> {
             ),
         ],
       ),
+      // Tampilan utama bergantung pada indeks terpilih
       body: _selectedIndex == 0
           ? HomePage()
           : ProductsPage(addToCart: _addToCart),
+      // Bottom navigation bar untuk navigasi antara tampilan utama dan produk
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -102,11 +110,13 @@ class _VapeStoreHomePageState extends State<VapeStoreHomePage> {
   }
 }
 
+// Halaman utama dengan pesan selamat datang
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+        // Gambar latar belakang
         image: DecorationImage(
           image: AssetImage(
               'assets/background_image.jpeg'), // Ubah dengan path gambar latar belakang Anda
@@ -117,6 +127,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
+            // Teks pesan selamat datang
             Text(
               'Welcome to TomVapeMaster',
               style: TextStyle(
@@ -126,6 +137,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
+            // Teks deskripsi
             Text(
               'Explore our collection of vaping products:',
               style: TextStyle(
@@ -140,6 +152,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
+// Halaman produk dengan daftar produk
 class ProductsPage extends StatelessWidget {
   final Function(double) addToCart;
 
@@ -161,6 +174,7 @@ class ProductsPage extends StatelessWidget {
     );
   }
 
+  // Fungsi untuk membangun item produk
   Widget _buildProductItem(String name, double price, String imagePath) {
     return Card(
       elevation: 4.0,
@@ -169,11 +183,13 @@ class ProductsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            // Nama produk
             Text(
               name,
               style: TextStyle(fontSize: 22),
             ),
             SizedBox(height: 8.0),
+            // Gambar produk
             Image.asset(
               imagePath,
               width: 200,
@@ -181,11 +197,13 @@ class ProductsPage extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             SizedBox(height: 8.0),
+            // Harga produk
             Text(
               'Price: Rp. ${price.toStringAsFixed(0)}',
               style: TextStyle(fontSize: 18),
             ),
             SizedBox(height: 8.0),
+            // Tombol "Add to Cart"
             ElevatedButton(
               onPressed: () => addToCart(price),
               child: Text('Add to Cart'),
@@ -197,6 +215,7 @@ class ProductsPage extends StatelessWidget {
   }
 }
 
+// Halaman keranjang belanja dengan total harga
 class CartPage extends StatelessWidget {
   final double totalPrice;
 
@@ -212,11 +231,13 @@ class CartPage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            // Total harga produk di keranjang
             Text(
               'Total Price: Rp. ${totalPrice.toStringAsFixed(0)}',
               style: TextStyle(fontSize: 24),
             ),
             SizedBox(height: 20),
+            // Tombol kembali ke halaman utama
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
